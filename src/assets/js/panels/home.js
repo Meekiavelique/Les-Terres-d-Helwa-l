@@ -1,7 +1,3 @@
-/**
- * @author Luuxis
- * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0
- */
 import { config, database, logger, changePanel, appdata, setStatus, pkg, popup } from '../utils.js'
 
 const { Launch } = require('minecraft-java-core')
@@ -9,13 +5,14 @@ const { shell, ipcRenderer } = require('electron')
 
 class Home {
     static id = "home";
+    
     async init(config) {
         this.config = config;
         this.db = new database();
         this.news()
         this.socialLick()
         this.instancesSelect()
-        document.querySelector('.settings-btn').addEventListener('click', e => changePanel('settings'))
+        document.querySelector('.settings-btn').addEventListener('click', () => changePanel('settings'))
     }
 
     async news() {
@@ -29,7 +26,7 @@ class Home {
                     <div class="news-header">
                         <img class="server-status-icon" src="assets/images/icon.png">
                         <div class="header-text">
-                            <div class="title">Aucun news n'ai actuellement disponible.</div>
+                            <div class="title">Aucun news n'est actuellement disponible.</div>
                         </div>
                         <div class="date">
                             <div class="day">1</div>
@@ -38,7 +35,7 @@ class Home {
                     </div>
                     <div class="news-content">
                         <div class="bbWrapper">
-                            <p>Vous pourrez suivre ici toutes les news relative au serveur.</p>
+                            <p>Vous pourrez suivre ici toutes les news relatives au serveur.</p>
                         </div>
                     </div>`
                 newsElement.appendChild(blockNews);
@@ -72,20 +69,20 @@ class Home {
             blockNews.classList.add('news-block');
             blockNews.innerHTML = `
                 <div class="news-header">
-                        <img class="server-status-icon" src="assets/images/icon.png">
-                        <div class="header-text">
-                            <div class="title">Error.</div>
-                        </div>
-                        <div class="date">
-                            <div class="day">1</div>
-                            <div class="month">Janvier</div>
-                        </div>
+                    <img class="server-status-icon" src="assets/images/icon.png">
+                    <div class="header-text">
+                        <div class="title">Error.</div>
                     </div>
-                    <div class="news-content">
-                        <div class="bbWrapper">
-                            <p>Impossible de contacter le serveur des news.</br>Merci de vérifier votre configuration.</p>
-                        </div>
-                    </div>`
+                    <div class="date">
+                        <div class="day">1</div>
+                        <div class="month">Janvier</div>
+                    </div>
+                </div>
+                <div class="news-content">
+                    <div class="bbWrapper">
+                        <p>Impossible de contacter le serveur des news.</br>Merci de vérifier votre configuration.</p>
+                    </div>
+                </div>`
             newsElement.appendChild(blockNews);
         }
     }
@@ -106,54 +103,45 @@ class Home {
         let instancesList = await config.getInstanceList()
         let instanceSelect = instancesList.find(i => i.name == configClient?.instance_selct) ? configClient?.instance_selct : null
 
-        let instanceBTN = document.querySelector('.play-instance')
+        let playInstanceBTN = document.querySelector('.play-instance')
         let instancePopup = document.querySelector('.instance-popup')
         let instancesListPopup = document.querySelector('.instances-List')
         let instanceCloseBTN = document.querySelector('.close-popup')
+        let playBtn = document.querySelector('.play-btn')
+        let instanceSelectBtn = document.querySelector('.instance-select')
 
         if (instancesList.length === 1) {
-            document.querySelector('.instance-select').style.display = 'none'
-            instanceBTN.style.paddingRight = '0'
+            instanceSelectBtn.style.display = 'none'
+            playInstanceBTN.style.paddingRight = '0'
         }
 
         if (!instanceSelect) {
             let newInstanceSelect = instancesList.find(i => i.whitelistActive == false)
-            let configClient = await this.db.readData('configClient')
             configClient.instance_selct = newInstanceSelect.name
             instanceSelect = newInstanceSelect.name
             await this.db.updateData('configClient', configClient)
         }
 
-        for (let instance of instancesList) {
-            if (instance.whitelistActive) {
-                let whitelist = instance.whitelist.find(whitelist => whitelist == auth?.name)
-                if (whitelist !== auth?.name) {
-                    if (instance.name == instanceSelect) {
-                        let newInstanceSelect = instancesList.find(i => i.whitelistActive == false)
-                        let configClient = await this.db.readData('configClient')
-                        configClient.instance_selct = newInstanceSelect.name
-                        instanceSelect = newInstanceSelect.name
-                        setStatus(newInstanceSelect.status)
-                        await this.db.updateData('configClient', configClient)
-                    }
-                }
-            } else console.log(`Initializing instance ${instance.name}...`)
-            if (instance.name == instanceSelect) setStatus(instance.status)
-        }
+        playBtn.addEventListener('click', () => this.startGame())
 
-        instancePopup.addEventListener('click', async e => {
-            let configClient = await this.db.readData('configClient')
+        instanceSelectBtn.addEventListener('click', () => {
+            this.showInstancePopup(instancesListPopup, instancesList, instanceSelect, auth)
+            instancePopup.style.display = 'flex'
+        })
 
+        instanceCloseBTN.addEventListener('click', () => instancePopup.style.display = 'none')
+
+        instancePopup.addEventListener('click', async (e) => {
             if (e.target.classList.contains('instance-elements')) {
                 let newInstanceSelect = e.target.id
                 let activeInstanceSelect = document.querySelector('.active-instance')
 
-                if (activeInstanceSelect) activeInstanceSelect.classList.toggle('active-instance');
-                e.target.classList.add('active-instance');
+                if (activeInstanceSelect) activeInstanceSelect.classList.toggle('active-instance')
+                e.target.classList.add('active-instance')
 
                 configClient.instance_selct = newInstanceSelect
                 await this.db.updateData('configClient', configClient)
-                instanceSelect = instancesList.filter(i => i.name == newInstanceSelect)
+                instanceSelect = instancesList.find(i => i.name == newInstanceSelect)
                 instancePopup.style.display = 'none'
                 let instance = await config.getInstanceList()
                 let options = instance.find(i => i.name == configClient.instance_selct)
@@ -161,44 +149,46 @@ class Home {
             }
         })
 
-        instanceBTN.addEventListener('click', async e => {
-            let configClient = await this.db.readData('configClient')
-            let instanceSelect = configClient.instance_selct
-            let auth = await this.db.readData('accounts', configClient.account_selected)
-
-            if (e.target.classList.contains('instance-select')) {
-                instancesListPopup.innerHTML = ''
-                for (let instance of instancesList) {
-                    if (instance.whitelistActive) {
-                        instance.whitelist.map(whitelist => {
-                            if (whitelist == auth?.name) {
-                                if (instance.name == instanceSelect) {
-                                    instancesListPopup.innerHTML += `<div id="${instance.name}" class="instance-elements active-instance">${instance.name}</div>`
-                                } else {
-                                    instancesListPopup.innerHTML += `<div id="${instance.name}" class="instance-elements">${instance.name}</div>`
-                                }
-                            }
-                        })
-                    } else {
-                        if (instance.name == instanceSelect) {
-                            instancesListPopup.innerHTML += `<div id="${instance.name}" class="instance-elements active-instance">${instance.name}</div>`
-                        } else {
-                            instancesListPopup.innerHTML += `<div id="${instance.name}" class="instance-elements">${instance.name}</div>`
-                        }
-                    }
+        for (let instance of instancesList) {
+            if (instance.whitelistActive) {
+                let whitelist = instance.whitelist.find(whitelist => whitelist == auth?.name)
+                if (whitelist !== auth?.name && instance.name == instanceSelect) {
+                    let newInstanceSelect = instancesList.find(i => i.whitelistActive == false)
+                    configClient.instance_selct = newInstanceSelect.name
+                    instanceSelect = newInstanceSelect.name
+                    setStatus(newInstanceSelect.status)
+                    await this.db.updateData('configClient', configClient)
                 }
-
-                instancePopup.style.display = 'flex'
             }
+            if (instance.name == instanceSelect) setStatus(instance.status)
+        }
+    }
 
-            if (!e.target.classList.contains('instance-select')) this.startGame()
-        })
+    showInstancePopup(instancesListPopup, instancesList, instanceSelect, auth) {
+        instancesListPopup.innerHTML = ''
+        for (let instance of instancesList) {
+            if (instance.whitelistActive) {
+                instance.whitelist.map(whitelist => {
+                    if (whitelist == auth?.name) {
+                        this.addInstanceElement(instancesListPopup, instance, instanceSelect)
+                    }
+                })
+            } else {
+                this.addInstanceElement(instancesListPopup, instance, instanceSelect)
+            }
+        }
+    }
 
-        instanceCloseBTN.addEventListener('click', () => instancePopup.style.display = 'none')
+    addInstanceElement(instancesListPopup, instance, instanceSelect) {
+        let element = document.createElement('div')
+        element.id = instance.name
+        element.classList.add('instance-elements')
+        if (instance.name == instanceSelect) element.classList.add('active-instance')
+        element.textContent = instance.name
+        instancesListPopup.appendChild(element)
     }
 
     async startGame() {
-        let launch = new Launch()
         let configClient = await this.db.readData('configClient')
         let instance = await config.getInstanceList()
         let authenticator = await this.db.readData('accounts', configClient.account_selected)
@@ -243,57 +233,55 @@ class Home {
             }
         }
 
+        const launch = new Launch();
+
         launch.Launch(opt);
 
-        playInstanceBTN.style.display = "none"
-        infoStartingBOX.style.display = "block"
-        progressBar.style.display = "";
+        if (playInstanceBTN) playInstanceBTN.style.display = "none"
+        if (infoStartingBOX) infoStartingBOX.style.display = "block"
+        if (infoStarting) infoStarting.style.opacity = "1"
+        if (progressBar) progressBar.style.display = "block"
+        
         ipcRenderer.send('main-window-progress-load')
 
         launch.on('extract', extract => {
             ipcRenderer.send('main-window-progress-load')
+            infoStarting.textContent = `Extraction en cours...`
             console.log(extract);
         });
 
         launch.on('progress', (progress, size) => {
-            infoStarting.innerHTML = `Téléchargement ${((progress / size) * 100).toFixed(0)}%`
+            infoStarting.textContent = `Téléchargement ${((progress / size) * 100).toFixed(0)}%`
             ipcRenderer.send('main-window-progress', { progress, size })
-            progressBar.value = progress;
-            progressBar.max = size;
+            if (progressBar) {
+                progressBar.value = progress;
+                progressBar.max = size;
+            }
         });
 
         launch.on('check', (progress, size) => {
-            infoStarting.innerHTML = `Vérification ${((progress / size) * 100).toFixed(0)}%`
+            infoStarting.textContent = `Vérification ${((progress / size) * 100).toFixed(0)}%`
             ipcRenderer.send('main-window-progress', { progress, size })
-            progressBar.value = progress;
-            progressBar.max = size;
+            if (progressBar) {
+                progressBar.value = progress;
+                progressBar.max = size;
+            }
         });
-
-        launch.on('estimated', (time) => {
-            let hours = Math.floor(time / 3600);
-            let minutes = Math.floor((time - hours * 3600) / 60);
-            let seconds = Math.floor(time - hours * 3600 - minutes * 60);
-            console.log(`${hours}h ${minutes}m ${seconds}s`);
-        })
-
-        launch.on('speed', (speed) => {
-            console.log(`${(speed / 1067008).toFixed(2)} Mb/s`)
-        })
 
         launch.on('patch', patch => {
             console.log(patch);
             ipcRenderer.send('main-window-progress-load')
-            infoStarting.innerHTML = `Patch en cours...`
+            infoStarting.textContent = `Patch en cours...`
         });
 
         launch.on('data', (e) => {
-            progressBar.style.display = "none"
+            if (progressBar) progressBar.style.display = "none"
             if (configClient.launcher_config.closeLauncher == 'close-launcher') {
                 ipcRenderer.send("main-window-hide")
             };
             new logger('Minecraft', '#36b030');
             ipcRenderer.send('main-window-progress-load')
-            infoStarting.innerHTML = `Demarrage en cours...`
+            infoStarting.textContent = `Démarrage en cours...`
             console.log(e);
         })
 
@@ -302,9 +290,9 @@ class Home {
                 ipcRenderer.send("main-window-show")
             };
             ipcRenderer.send('main-window-progress-reset')
-            infoStartingBOX.style.display = "none"
-            playInstanceBTN.style.display = "flex"
-            infoStarting.innerHTML = `Vérification`
+            if (infoStartingBOX) infoStartingBOX.style.display = "none"
+            if (playInstanceBTN) playInstanceBTN.style.display = "flex"
+            infoStarting.textContent = `Vérification`
             new logger(pkg.name, '#7289da');
             console.log('Close');
         });
@@ -323,9 +311,9 @@ class Home {
                 ipcRenderer.send("main-window-show")
             };
             ipcRenderer.send('main-window-progress-reset')
-            infoStartingBOX.style.display = "none"
-            playInstanceBTN.style.display = "flex"
-            infoStarting.innerHTML = `Vérification`
+            if (infoStartingBOX) infoStartingBOX.style.display = "none"
+            if (playInstanceBTN) playInstanceBTN.style.display = "flex"
+            infoStarting.textContent = `Vérification`
             new logger(pkg.name, '#7289da');
             console.log(err);
         });
@@ -340,4 +328,5 @@ class Home {
         return { year: year, month: allMonth[month - 1], day: day }
     }
 }
+
 export default Home;
