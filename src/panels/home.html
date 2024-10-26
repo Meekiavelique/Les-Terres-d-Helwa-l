@@ -3,63 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Launcher</title>
+    <title>Les Terres D'Helwast</title>
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/launcher.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <a href="/">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAaCAYAAADWm14/AAANoklEQVR4AQCBAH7/AJGEnyCRhJ8hkYSfIZGEnyORhJ8kkYSfJZGEnyWRhJ8lkYSfJJGEnyORhJ8hkYSfHpGEnxyRhJ8akYSfGJGEnxiRhJ8YkYSfGJGEnxqRhJ8ckYSfHpGEnyGRhJ8jkYSfJJGEnyWRhJ8lkYSfJZGEnySRhJ8jkYSfIZGEnyCRhJ8gAIEAfv8AkYSfFJGEnxSRhJ8WkYSfF5GEnxiRhJ8akYSfG5GEnxuRhJ8bkYSfGpGEnxiRhJ8WkYSfFJGEnxKRhJ8RkYSfEJGEnxCRhJ8RkYSfEpGEnxSRhJ8WkYSfGJGEnxmRhJ8akYSfG5GEnxqRhJ8ZkYSfGJGEnxaRhJ8VkYSfFJGEnxMAgQB+/wCRhJ8AkYSfAJGEnwGRhJ8DkYSfBZGEnweRhJ8IkYSfCZGEnwqRhJ8KkYSfCZGEnwiRhJ8GkYSfBZGEnwSRhJ8DkYSfA5GEnwSRhJ8FkYSfBpGEnweRhJ8JkYSfCZGEnwmRhJ8JkYSfB5GEnwWRhJ8DkYSfAZGEnwCRhJ8AkYSfAACBAH7/AJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AAIEAfv8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwAAgQB+/wCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAACBAH7/AJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AAIEAfv8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwaRhJ8MkYSfEZGEnxWRhJ8YkYSfGZGEnxmRhJ8ZkYSfF5GEnxORhJ8OkYSfCJGEnwGRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwAAgQB+/wCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfCZGEnxSRhJ8ekYSfJ5GEny+RhJ82kYSfO5GEnz6RhJ9AkYSfQZGEn0CRhJ89kYSfOZGEnzORhJ8rkYSfIpGEnxeRhJ8MkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAACBAH7/AJGEnwCRhJ8AkYSfAJGEnwCRhJ8IkYSfE5GEnyCRhJ8skYSfOZGEn0WRhJ9PkYSfWZGEn2CRhJ9nkYSfa5GEn26RhJ9vkYSfbpGEn2uRhJ9mkYSfX5GEn1aRhJ9LkYSfP5GEnzKRhJ8kkYSfFpGEnwmRhJ8AkYSfAJGEnwCRhJ8AAIEAfv8AkYSfC5GEnw6RhJ8UkYSfHZGEnyiRhJ81kYSfQ5GEn1GRhJ9fkYSfbJGEn3iRhJ+DkYSfjJGEn5ORhJ+YkYSfnJGEn52RhJ+ckYSfmZGEn5ORhJ+MkYSfgpGEn3aRhJ9okYSfWpGEn0qRhJ87kYSfLZGEnyCRhJ8WkYSfD5GEnwsAgQB+/wCRhJ8mkYSfKZGEnzCRhJ85kYSfRZGEn1ORhJ9hkYSfcJGEn3+RhJ+NkYSfm5GEn6aRhJ+wkYSfuJGEn76RhJ/CkYSfxJGEn8ORhJ/AkYSfupGEn7KRhJ+okYSfm5GEn42RhJ99kYSfbZGEn12RhJ9NkYSfQJGEnzWRhJ8ukYSfKgCBAH7/AJGEnziRhJ88kYSfQ5GEn0yRhJ9YkYSfZpGEn3WRhJ+FkYSflZGEn6SRhJ+xkYSfvpGEn8iRhJ/RkYSf2JGEn9yRhJ/ekYSf3pGEn9uRhJ/VkYSfzZGEn8KRhJ+1kYSfppGEn5aRhJ+FkYSfdJGEn2WRhJ9XkYSfTJGEn0SRhJ9AAIEAfv8AkYSfP5GEn0KRhJ9JkYSfU5GEn1+RhJ9tkYSffJGEn4yRhJ+ckYSfq5GEn7mRhJ/FkYSf0JGEn9qRhJ/hkYSf5ZGEn+iRhJ/okYSf5ZGEn9+RhJ/XkYSfzZGEn8CRhJ+xkYSfoZGEn5CRhJ9/kYSfb5GEn2GRhJ9WkYSfTpGEn0oAgQB+/wCRhJ84kYSfPJGEn0KRhJ9MkYSfWJGEn2WRhJ90kYSfhJGEn5ORhJ+ikYSfsJGEn7yRhJ/HkYSf0JGEn9eRhJ/dkYSf35GEn+CRhJ/dkYSf2JGEn9GRhJ/HkYSfupGEn6yRhJ+ckYSfi5GEn3qRhJ9rkYSfXZGEn1KRhJ9KkYSfRgCBAH7/AJGEnyeRhJ8qkYSfMZGEnzqRhJ9FkYSfUpGEn2CRhJ9ukYSffZGEn4uRhJ+YkYSfpJGEn6+RhJ+3kYSfv5GEn8SRhJ/HkYSfx5GEn8aRhJ/BkYSfu5GEn7GRhJ+lkYSfmJGEn4mRhJ95kYSfaZGEn1qRhJ9MkYSfQZGEnzqRhJ82AIEAfv8AkYSfD5GEnxKRhJ8YkYSfIJGEnyqRhJ82kYSfQpGEn1CRhJ9dkYSfapGEn3aRhJ+BkYSfi5GEn5ORhJ+akYSfn5GEn6ORhJ+kkYSfo5GEn5+RhJ+ZkYSfkZGEn4aRhJ96kYSfbJGEn12RhJ9OkYSfQJGEnzORhJ8pkYSfIZGEnx4AgQB+/wCRhJ8AkYSfAJGEnwCRhJ8EkYSfDZGEnxeRhJ8ikYSfLpGEnzqRhJ9FkYSfUJGEn1qRhJ9ikYSfapGEn3CRhJ91kYSfeZGEn3qRhJ96kYSfd5GEn3KRhJ9rkYSfYpGEn1eRhJ9KkYSfPZGEny+RhJ8ikYSfFpGEnwyRhJ8GkYSfAgCBAH7/AJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwWRhJ8PkYSfGJGEnyKRhJ8rkYSfM5GEnzuRhJ9CkYSfR5GEn0yRhJ9PkYSfUZGEn1KRhJ9QkYSfTJGEn0eRhJ8/kYSfNZGEnyqRhJ8ekYSfEpGEnwaRhJ8AkYSfAJGEnwCRhJ8AAIEAfv8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfBpGEnw2RhJ8TkYSfGpGEnx+RhJ8kkYSfKZGEnyyRhJ8ukYSfL5GEny6RhJ8skYSfJ5GEnyGRhJ8ZkYSfEJGEnwWRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwAAgQB+/wCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8CkYSfBpGEnwuRhJ8OkYSfEpGEnxSRhJ8WkYSfFpGEnxSRhJ8RkYSfDZGEnwaRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAACBAH7/AJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8CkYSfBJGEnwaRhJ8HkYSfB5GEnwWRhJ8CkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AAIEAfv8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwKRhJ8CkYSfApGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwAAgQB+/wCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfApGEnwORhJ8EkYSfApGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAACBAH7/AJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwKRhJ8FkYSfB5GEnwiRhJ8HkYSfBZGEnwKRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AAYEAfv8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwCRhJ8BkYSfBJGEnweRhJ8JkYSfC5GEnwqRhJ8JkYSfBpGEnwKRhJ8AkYSfAJGEnwCRhJ8AkYSfAJGEnwBlZhiTwzXCCwAAAABJRU5ErkJggg==" alt="Les Terres D'Helwast" class="nav-logo">
+        </a>
+        <div class="nav-links">
+            <a href=" ">Site / Accueil</a>
+            <a class=" ">Paramètres</a>
+            <a href=" ">Connexion</a>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="sidebar">
-            <div class="sidebar-top">
-                <div class="player-options">
-                    <div class="player-head"></div>
-                    <span class="player-name">Comptes</span>
-                </div>
+        <img src="https://media.discordapp.net/attachments/1269557701138976879/1275856086355808326/Les_Terres_dHelwael-01-1.png?ex=671b2053&is=6719ced3&hm=979bf8340f10c205a8ecd9f828b20a37be6d07e29ea7fb30ea8945baf9a8d014&=&format=webp&quality=lossless&width=572&height=441" alt="Les Terres D'Helwast" class="logo">
+        <div class="main-buttons">
+            <div class="play-instance">
+                <button class="play-btn main-button play">Jouer</button>
+                <div class="instance-select icon-arrow"></div>
             </div>
-            <div class="sidebar-middle">
-                <div class="play-elements">
-                    <div class="play-instance">
-                        <button class="play-btn">Jouer</button>
-                        <div class="instance-select icon-arrow"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="sidebar-bottom">
-                <button class="settings-btn icon-settings"></button>
-                <button class="notification-btn icon-bell"></button>
-            </div>
+            <button class="main-button">Mods</button>
+            <button class="main-button">Boutique</button>
+            <button class="main-button">Quitter</button>
         </div>
-       
-        <div class="main-content">
-            <div class="content-top">
-                <div class="featured-content">
-                    <h2>Tropolia</h2>
-                    <p>Un pvp faction revisité rien que pour vous !</p>
-                    <button class="learn-more">En savoir plus</button>
-                </div>
-            </div>
-            <div class="content-bottom">
-                <div class="news-list">
-                    <!-- News items will be dynamically added here -->
-                </div>
-            </div>
-        </div>
-       
-        <div class="status-server">
-            <img class="server-status-icon" src="assets/images/icon.png" alt="Server Icon">
-            <div class="server-status-infos">
-                <div class="server-status-name">Tropolia</div>
-                <div class="server-status-text">Ouvert 189 ms</div>
-            </div>
+        
+        <div class="info-starting-game" style="display: none;">
+            <div class="info-starting-game-text">Vérification</div>
+            <progress class="progress-bar" max="100" value="0"></progress>
         </div>
     </div>
-    <div class="instance-popup">
+
+    <div class="instance-popup" style="display: none;">
         <div class="instances-tab">
             <div class="close-popup icon-close"></div>
             <p>Choisissez votre instance...</p>
             <div class="instances-List"></div>
         </div>
     </div>
+
     <script type="module" src="js/launcher.js"></script>
 </body>
 </html>

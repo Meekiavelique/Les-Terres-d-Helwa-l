@@ -1,199 +1,172 @@
-:root {
-    --background: #1a1a1a;
-    --sidebar-bg: #121212;
-    --color: #ffffff;
-    --element-color: #4CAF50;
-}
-
 body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    height: 100%;
-    background-color: var(--background);
+    height: 100vh;
+    background: url('../assets/images/minecraft-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: var(--color);
 }
 
 .container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+    position: relative;
 }
 
-.sidebar {
-    width: 200px;
-    background: var(--sidebar-bg);
-    padding: 20px;
+.logo {
+    width: 220px;
+    margin-bottom: 2rem;
+}
+
+.main-buttons {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 1.2rem;
+    width: 280px; /* slightly wider for better presence */
+    perspective: 1000px; /* for 3D hover effects */
 }
 
-.player-options {
-    display: flex;
+.main-button {
+    padding: 16px 24px;
+    width: 100%;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #1C1920, #2a2530);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.main-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.main-button:hover {
+    background: linear-gradient(145deg, #403350, #4a3d5d);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(64, 51, 80, 0.4);
+}
+
+.main-button:hover::before {
+    left: 100%;
+}
+
+.main-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(64, 51, 80, 0.3);
+}
+
+.main-button.play {
+    background: linear-gradient(145deg, #403350, #4a3d5d);
+    border: 2px solid #524268;
+}
+
+.main-button.play:hover {
+    background: linear-gradient(145deg, #4a3d5d, #554870);
+    border-color: #635279;
+}
+
+/* Optional: Add icons to buttons */
+.main-button span {
+    display: inline-flex;
     align-items: center;
-    margin-bottom: 40px;
+    justify-content: center;
+    gap: 8px;
 }
 
-.player-head {
-    background: url('../../images/default/steve.png') no-repeat;
-    background-size: cover;
-    image-rendering: pixelated;
-    height: 3rem;
-    width: 3rem;
-    border-radius: 15px;
-    margin-right: 10px;
+/* Optional: Disable button styles */
+.main-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #1C1920;
+    transform: none;
+    box-shadow: none;
 }
 
-.play-elements {
-    margin-bottom: 20px;
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1C1920;
+    z-index: 100;
+}
+
+.nav-logo {
+    height: 40px;
+    width: auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -webkit-font-smoothing: antialiased;
+    transform: translateZ(0);  /* forces GPU acceleration */
+    backface-visibility: hidden;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: #c9afdf;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.nav-links a:hover {
+    opacity: 1;
 }
 
 .play-instance {
     display: flex;
     align-items: center;
-    background-color: var(--element-color);
-    border-radius: 5px;
+    width: 100%;
+    border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 10px;
 }
 
 .play-btn {
     flex-grow: 1;
-    padding: 12px;
-    border: none;
-    background: none;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
+    border-radius: 8px 0 0 8px;
 }
 
 .instance-select {
-    padding: 12px;
-    background-color: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
     cursor: pointer;
-}
-
-.settings-btn, .notification-btn {
-    cursor: pointer;
-    font-size: 24px;
-    color: #888;
-    background: none;
-    border: none;
-    margin-top: 10px;
-}
-
-.main-content {
-    flex-grow: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.status-server {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+    height: 100%;
     display: flex;
     align-items: center;
-    background-color: rgba(30, 30, 30, 0.8);
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.server-status-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-.server-status-name {
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.server-status-text {
-    color: var(--element-color);
-}
-
-.news-list {
-    background: rgba(30, 30, 30, 0.8);
-    border-radius: 10px;
-    padding: 20px;
-    height: 300px; /* Set a specific height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    margin-bottom: 20px;
-}
-
-/* Optional: Style the scrollbar for better aesthetics */
-.news-list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.news-list::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-}
-
-.news-list::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-}
-
-.news-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.news-item img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-    border-radius: 5px;
-}
-
-.news-info {
-    flex-grow: 1;
-}
-
-.news-info h3 {
-    margin: 0;
-    font-size: 18px;
-}
-
-.news-date {
-    font-size: 14px;
-    color: #aaa;
-}
-
-.featured-content {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-}
-
-.featured-content h2 {
-    margin: 0;
-    font-size: 24px;
-}
-
-.featured-content p {
-    margin: 10px 0;
-}
-
-.learn-more {
-    background-color: var(--element-color);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    align-self: flex-start;
+    border-radius: 0 8px 8px 0;
 }
 
 .instance-popup {
@@ -202,14 +175,15 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .instances-tab {
-    background-color: var(--background);
+    background: var(--background);
     padding: 20px;
     border-radius: 10px;
     width: 300px;
@@ -228,22 +202,28 @@ body, html {
 .instance-elements {
     padding: 10px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .instance-elements:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .active-instance {
-    background-color: var(--element-color);
+    background: var(--element-color);
 }
 
 .info-starting-game {
-    display: none;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.info-starting-game-text {
+    margin-bottom: 10px;
 }
 
 .progress-bar {
-    width: 100%;
+    width: 300px;
     height: 10px;
-    margin-top: 10px;
+    border-radius: 5px;
 }
