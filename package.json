@@ -1,7 +1,7 @@
 {
     "name": "LesTerresDHelwael",
     "preductname": "Les Terres D'Helwaël",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Launcher minecraft",
     "main": "src/app.js",
     "author": {
