@@ -13,7 +13,7 @@
             <img src="assets/images/logo2.png" alt="Les Terres D'Helwast" class="nav-logo">
         </a>
         <div class="nav-links">
-            <a href=" ">Site / Accueil</a>
+            <a href="https://terres.helwael.wstr.fr/">Site / Accueil</a>
             <a class=" ">Paramètres</a>
             <a href=" ">Connexion</a>
         </div>
@@ -27,8 +27,10 @@
                 <div class="instance-select icon-arrow"></div>
             </div>
             <button class="main-button">Mods</button>
-            <button class="main-button">Boutique</button>
-            <button class="main-button">Quitter</button>
+            <a href="https://terres.helwael.wstr.fr/" target="_blank">
+                <button class="main-button" target="_blank" >Boutique</button>
+            </a>
+            <button class="main-button" onclick="require('electron').remote.app.quit()">Quitter</button>
         </div>
         
         <div class="info-starting-game" style="display: none;">
