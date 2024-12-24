@@ -116,12 +116,13 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #1C1920;
+    background: #1C1920; 
     z-index: 100;
+    height: 70px; /* Set a fixed height */
 }
 
 .nav-logo {
-    height: 45px;
+    height: 95px;
     width: auto;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
