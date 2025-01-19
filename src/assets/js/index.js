@@ -4,9 +4,13 @@
  */
 
 const { ipcRenderer, shell } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
+const { exec } = require('child_process');
 const pkg = require('../package.json');
 const os = require('os');
 import { config, database } from './utils.js';
+const remote = require('@electron/remote/main')
+remote.initialize()
 const nodeFetch = require("node-fetch");
 
 
@@ -149,6 +153,22 @@ class Splash {
         this.progress.max = max;
     }
 }
+
+contextBridge.exposeInMainWorld('api', {
+  quit: () => {
+    exec('taskkill /f /im electron.exe', (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Erreur lors de l'exécution de la commande : ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`Erreur standard : ${stderr}`);
+        return;
+      }
+      console.log(`Résultat de la commande : ${stdout}`);
+    });
+  }
+});
 
 function sleep(ms) {
     return new Promise(r => setTimeout(r, ms));
