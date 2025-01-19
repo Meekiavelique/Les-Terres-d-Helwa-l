@@ -3,7 +3,6 @@
  * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0
  */
 
-const { ipcRenderer, shell } = require('electron');
 const { contextBridge, ipcRenderer } = require('electron');
 const { exec } = require('child_process');
 const pkg = require('../package.json');
