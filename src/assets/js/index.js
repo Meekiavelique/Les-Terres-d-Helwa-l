@@ -9,7 +9,6 @@ const pkg = require('../package.json');
 const os = require('os');
 import { config, database } from './utils.js';
 const remote = require('@electron/remote/main')
-remote.initialize()
 const nodeFetch = require("node-fetch");
 
 
