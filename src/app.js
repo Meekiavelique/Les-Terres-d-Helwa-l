@@ -26,6 +26,7 @@ if (dev) {
 
 if (!app.requestSingleInstanceLock()) app.quit();
 else app.whenReady().then(() => {
+    console.log("App is ready");
     if (dev) return MainWindow.createWindow()
     UpdateWindow.createWindow()
 });

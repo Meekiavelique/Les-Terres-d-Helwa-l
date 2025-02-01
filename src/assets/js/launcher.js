@@ -19,6 +19,7 @@ const fs = require('fs');
 
 class Launcher {
     async init() {
+        console.log('Initializing Launcher...');
         this.initLog();
         console.log('Initializing Launcher...');
         this.shortcut()
@@ -29,7 +30,7 @@ class Launcher {
         this.db = new database();
         await this.initConfigClient();
         this.createPanels(Login, Home, Settings);
-        this.startLauncher();
+        this.startUpdateWindow(); // Change this line to start the update window
     }
 
     initLog() {
@@ -262,6 +263,11 @@ class Launcher {
             popupRefresh.closePopup()
             changePanel('login');
         }
+    }
+
+    async startUpdateWindow() {
+        console.log('Starting Update Window...');
+        ipcRenderer.send('open-update-window'); // Send a message to open the update window
     }
 }
 

@@ -22,6 +22,7 @@ function destroyWindow() {
 
 function createWindow() {
     destroyWindow();
+    console.log("Creating main window...");
     mainWindow = new BrowserWindow({
         title: pkg.preductname,
         width: 1280,
@@ -42,6 +43,7 @@ function createWindow() {
     mainWindow.loadFile(path.join(`${app.getAppPath()}/src/launcher.html`));
     mainWindow.once('ready-to-show', () => {
         if (mainWindow) {
+            console.log("Main window ready to show");
             if (dev) mainWindow.webContents.openDevTools({ mode: 'detach' })
             mainWindow.show()
         }

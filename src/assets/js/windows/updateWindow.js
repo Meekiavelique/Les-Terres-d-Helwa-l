@@ -22,6 +22,7 @@ function destroyWindow() {
 
 function createWindow() {
     destroyWindow();
+    console.log("Creating update window...");
     updateWindow = new BrowserWindow({
         title: "Mise à jour",
         width: 400,
@@ -40,6 +41,7 @@ function createWindow() {
     updateWindow.loadFile(path.join(`${app.getAppPath()}/src/index.html`));
     updateWindow.once('ready-to-show', () => {
         if (updateWindow) {
+            console.log("Update window ready to show");
             if (dev) updateWindow.webContents.openDevTools({ mode: 'detach' })
             updateWindow.show();
         }
