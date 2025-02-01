@@ -10,8 +10,6 @@ import Settings from './panels/settings.js';
 // import modules
 import { logger, config, changePanel, database, popup, setBackground, accountSelect, addAccount, pkg } from './utils.js';
 const { AZauth, Microsoft, Mojang } = require('minecraft-java-core');
-const remote = require('@electron/remote/main')
-const { app, BrowserWindow, ipcMain, contextBridge } = require('electron')
 
 // libs
 const { ipcRenderer } = require('electron');

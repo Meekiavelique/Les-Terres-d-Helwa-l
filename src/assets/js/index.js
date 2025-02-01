@@ -3,13 +3,12 @@
  * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0
  */
 
-const { contextBridge, ipcRenderer } = require('electron');
-const { exec } = require('child_process');
+const { ipcRenderer, shell } = require('electron');
 const pkg = require('../package.json');
 const os = require('os');
 import { config, database } from './utils.js';
-const remote = require('@electron/remote/main')
 const nodeFetch = require("node-fetch");
+
 
 
 class Splash {
@@ -153,21 +152,6 @@ class Splash {
     }
 }
 
-contextBridge.exposeInMainWorld('api', {
-  quit: () => {
-    exec('taskkill /f /im electron.exe', (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Erreur lors de l'exécution de la commande : ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.error(`Erreur standard : ${stderr}`);
-        return;
-      }
-      console.log(`Résultat de la commande : ${stdout}`);
-    });
-  }
-});
 
 function sleep(ms) {
     return new Promise(r => setTimeout(r, ms));
