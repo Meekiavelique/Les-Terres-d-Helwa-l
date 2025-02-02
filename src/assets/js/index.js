@@ -10,10 +10,8 @@ import { config, database } from './utils.js';
 const nodeFetch = require("node-fetch");
 
 
-
 class Splash {
     constructor() {
-        console.log('Initializing Splash...');
         this.splash = document.querySelector(".splash");
         this.splashMessage = document.querySelector(".splash-message");
         this.splashAuthor = document.querySelector(".splash-author");
@@ -151,7 +149,6 @@ class Splash {
         this.progress.max = max;
     }
 }
-
 
 function sleep(ms) {
     return new Promise(r => setTimeout(r, ms));

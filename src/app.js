@@ -15,6 +15,8 @@ const MainWindow = require("./assets/js/windows/mainWindow.js");
 
 let dev = process.env.NODE_ENV === 'dev';
 
+
+
 if (dev) {
     let appPath = path.resolve('./data/Launcher').replace(/\\/g, '/');
     let appdata = path.resolve('./data').replace(/\\/g, '/');
@@ -26,7 +28,6 @@ if (dev) {
 
 if (!app.requestSingleInstanceLock()) app.quit();
 else app.whenReady().then(() => {
-    console.log("App is ready");
     if (dev) return MainWindow.createWindow()
     UpdateWindow.createWindow()
 });

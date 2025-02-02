@@ -28,7 +28,7 @@ class Launcher {
         this.db = new database();
         await this.initConfigClient();
         this.createPanels(Login, Home, Settings);
-        this.startUpdateWindow(); // Change this line to start the update window
+        await this.startLauncher();
     }
 
     initLog() {
@@ -268,5 +268,6 @@ class Launcher {
         ipcRenderer.send('open-update-window'); // Send a message to open the update window
     }
 }
+
 
 new Launcher().init();
