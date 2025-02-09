@@ -77,16 +77,19 @@ app.on('window-all-closed', () => app.quit());
 autoUpdater.autoDownload = false;
 
 ipcMain.handle('update-app', async () => {
+    console.log('Checking for app updates...');
     return await new Promise(async (resolve, reject) => {
         autoUpdater.checkForUpdates().then(res => {
+            console.log('Update check result:', res);
             resolve(res);
         }).catch(error => {
+            console.error('Update check error:', error);
             reject({
                 error: true,
                 message: error
-            })
-        })
-    })
+            });
+        });
+    });
 })
 
 autoUpdater.on('update-available', () => {
